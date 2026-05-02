@@ -12,8 +12,8 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api\/anthropic/, ""),
-        configure: (proxy, options) => {
-          proxy.on('proxyReq', (proxyReq, req, res) => {
+        configure: (proxy, _options) => {
+          proxy.on('proxyReq', (proxyReq, _req, _res) => {
             // Remove browser headers that trigger CORS detection
             proxyReq.removeHeader('origin');
             proxyReq.removeHeader('referer');
