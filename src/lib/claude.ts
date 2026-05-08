@@ -1,4 +1,9 @@
-export async function parseRecipe(recipeText: string) {
+export interface ParsedRecipe {
+  ingredients: string[];
+  steps: string[];
+}
+
+export async function parseRecipe(recipeText: string): Promise<ParsedRecipe> {
   try {
     const response = await fetch('/api/parse-recipe', {
       method: 'POST',
