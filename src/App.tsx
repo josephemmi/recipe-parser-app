@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import RecipeInput from './components/RecipeInput';
-import { RecipeDisplay } from './components/RecipeDisplay';
+import RecipeDisplay from './components/RecipeDisplay';
 import { ShoppingList } from './components/ShoppingList';
 import type { ParsedRecipe } from './lib/claude';
 
