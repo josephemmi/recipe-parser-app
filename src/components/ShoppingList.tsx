@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getShoppingList, toggleItem, removeItem, clearCompleted, ShoppingListItem } from '../lib/shoppingList';
+import { getShoppingList, toggleItem, removeItem, clearCompleted, type ShoppingListItem } from '../lib/shoppingList';
 
 export function ShoppingList() {
   const [items, setItems] = useState<ShoppingListItem[]>([]);
