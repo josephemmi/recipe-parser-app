@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import RecipeInput from './components/RecipeInput'
-import RecipeDisplay from './components/RecipeDisplay'
+import { useState } from 'react';
+import RecipeInput from './components/RecipeInput';
+import { RecipeDisplay } from './components/RecipeDisplay';
+import { ShoppingList } from './components/ShoppingList';
+import type { ParsedRecipe } from './lib/claude';
 
-interface Recipe {
-  ingredients: string[]
-  steps: string[]
-}
+type View = 'parser' | 'list';
 
 function App() {
-  const [recipe, setRecipe] = useState<Recipe | null>(null)
+  const [view, setView] = useState<View>('parser');
+  const [parsedRecipe, setParsedRecipe] = useState<ParsedRecipe | null>(null);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">
-          Recipe Parser
-        </h1>
-        
-        <RecipeInput onParsed={setRecipe} />
-        
-        {recipe && (
-          <div className="mt-8">
-            <RecipeDisplay 
-              ingredients={recipe.ingredients} 
-              steps={recipe.steps} 
-            />
+    <div className="min-h-screen bg-gray-50">
+      <nav className="bg-white shadow-sm border-b">
+        <div className="max-w-4xl mx-auto px-6 py-4">
+          <div className="flex gap-4">
+            <button
+              onClick={() => setView('parser')}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                view === 'parser'
+                  ? 'bg-purple-600 text-white'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              Recipe Parser
+            </button>
+            <button
+              onClick={() => setView('list')}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                view === 'list'
+                  ? 'bg-purple-600 text-white'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              Shopping List
+            </button>
           </div>
+        </div>
+      </nav>
+
+      <main className="max-w-4xl mx-auto p-6">
+        {view === 'parser' ? (
+          <>
+            <h1 className="text-3xl font-bold mb-6">Recipe Parser</h1>
+            <RecipeInput onParsed={setParsedRecipe} />
+            {parsedRecipe && (
+              <RecipeDisplay
+                ingredients={parsedRecipe.ingredients}
+                steps={parsedRecipe.steps}
+                recipeName="My Recipe"
+              />
+            )}
+          </>
+        ) : (
+          <ShoppingList />
         )}
-      </div>
+      </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
