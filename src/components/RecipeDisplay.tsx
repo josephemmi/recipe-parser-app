@@ -1,11 +1,15 @@
+import { addToShoppingList } from '../lib/shoppingList';
+
 type RecipeDisplayProps = {
   ingredients: string[];
   steps: string[];
+  recipeName?: string;
 };
 
-function RecipeDisplay({ ingredients, steps }: RecipeDisplayProps) {
+export default function RecipeDisplay({ ingredients, steps, recipeName = 'Recipe' }: RecipeDisplayProps) {
   function handleAddToShoppingList() {
-    console.log("Add to Shopping List", ingredients);
+    addToShoppingList(ingredients, recipeName);
+    alert('Added to shopping list!');
   }
 
   return (
@@ -21,7 +25,6 @@ function RecipeDisplay({ ingredients, steps }: RecipeDisplayProps) {
             ))}
           </ul>
         </section>
-
         <section className="flex flex-col gap-3">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Steps</h2>
           <ol className="ml-5 list-decimal space-y-3 text-gray-700 marker:font-medium marker:text-violet-600 dark:text-gray-300 dark:marker:text-violet-400">
@@ -31,7 +34,6 @@ function RecipeDisplay({ ingredients, steps }: RecipeDisplayProps) {
           </ol>
         </section>
       </div>
-
       <button
         type="button"
         onClick={handleAddToShoppingList}
@@ -42,4 +44,3 @@ function RecipeDisplay({ ingredients, steps }: RecipeDisplayProps) {
     </div>
   );
 }
-export default RecipeDisplay
